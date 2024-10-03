@@ -1,0 +1,1 @@
+<p>practice sample view method</p>
