@@ -42,4 +42,42 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getAllUsers()
+    {
+        $users = User::all();
+        return $users;
+    }
+
+    public function getUserById($id)
+    {
+        $user = User::find($id);
+        return $user;
+    }
+
+    public function createUser($data)
+    {
+        $user = new User();
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->save();
+        return $user;
+    }
+
+    public function updateUser($id, $data)
+    {
+        $user = User::find($id);
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->password = $data['password'];
+        $user->save();
+        return $user;
+    }
+
+    public function deleteUser($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        return $user;
+    }
 }
