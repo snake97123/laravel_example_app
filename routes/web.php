@@ -28,6 +28,25 @@ Route::get(
     [PostController::class, 'index2']
 );
 
+Route::get(
+    '/posts3',
+    [PostController::class, 'showAllPosts']
+);
+
+Route::post(
+    '/create/normalsql',
+    [PostController::class, 'insertPostWithSql']
+);
+
+Route::post(
+    '/update/normalsql',
+    [PostController::class, 'updatePostWithSql']
+);
+
+Route::post(
+    '/delete/normalsql',
+    [PostController::class, 'deletePostWithSql']
+);
 // Route::get(
 //     '/posts',
 //     [PostController::class, 'create']

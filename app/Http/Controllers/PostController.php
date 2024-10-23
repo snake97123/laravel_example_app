@@ -10,6 +10,7 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {   
         //投稿のダミーデータ作成。オブジェクトでタイトルとボディーを含む
@@ -53,6 +54,75 @@ class PostController extends Controller
         return view('posts.index2', [
             'posts' => $posts
         ]); 
+    }
+
+    public function showAllPosts()
+    {
+        $postModel = new Post();
+        $posts = $postModel->getAllPostsRawSQL();
+        return $posts;
+        
+    }
+
+    public function insertPostWithSql()
+    {
+        $dummyData = [
+            (object)[
+                'user_id' => 1,
+                'title' => 'タイトル1',
+                'body' => '本文1'
+            ],
+            (object)[
+                'user_id' => 1,
+                'title' => 'タイトル2',
+                'body' => '本文2'
+            ],
+            (object)[
+                'user_id' => 1,
+                'title' => 'タイトル3',
+                'body' => '本文3'
+            ],
+        ];
+        
+        $postModel = new Post();
+        foreach ($dummyData as $data) {
+            $postModel->insertPost($data);
+        }
+    }
+
+    public function updatePostWithSql() 
+    {
+       $dummyData = [
+            (object)[
+                'id' => 12,
+                'title' => 'タイトル更新1',
+                'body' => '本文更新1'
+            ],
+            (object)[
+                'id' => 13,
+                'title' => 'タイトル更新2',
+                'body' => '本文更新2'
+            ],
+            (object)[
+                'id' => 14,
+                'title' => 'タイトル更新3',
+                'body' => '本文更新3'
+            ],
+        ];
+        
+        $postModel = new Post();
+        foreach ($dummyData as $data) {
+            $postModel->updatePost($data);
+        }
+    }
+
+    public function deletePostwithSql() 
+    {
+        $dummyData = (object) [
+            'id' => 12,
+        ];
+        $postModel = new Post();
+        $postModel->deletePost($dummyData);
     }
 
     /**

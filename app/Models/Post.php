@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Post extends Model
 {
@@ -15,6 +16,36 @@ class Post extends Model
         $post->title = $data->title;
         $post->body = $data->body;
         $post->save();
+        return $post;
+    }
+
+    public function getAllPostsRawSQL()
+    {
+        $posts = DB::select('SELECT * FROM posts');
+        dd($posts);  
+        return $posts;
+    }
+    // データの挿入をするメソッド
+    public function insertPost($data)
+    {
+        // SQL injection対策のため
+        $post = DB::insert('INSERT INTO posts (user_id, title, body, created_at = ?) VALUES (?, ?, ?)', [$data->user_id, $data->title, $data->body, now()]);
+        return $post;
+    }
+
+    // データの更新をするメソッド
+    public function updatePost($data)
+    {
+        // SQL injection対策のため
+        $post = DB::update('UPDATE posts SET title = ?, body = ?, updated_at = ? WHERE id = ?', [$data->title, $data->body, now(), $data->id]);
+        return $post;
+    }
+
+    // データの削除をするメソッド
+    public function deletePost($data)
+    {
+        // SQL injection対策のため
+        $post = DB::delete('DELETE FROM posts WHERE id = ?', [$data->id]);
         return $post;
     }
 }
