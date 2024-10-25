@@ -48,4 +48,21 @@ class Post extends Model
         $post = DB::delete('DELETE FROM posts WHERE id = ?', [$data->id]);
         return $post;
     }
+
+    // get all data with use transaction
+    public function createAllPostsRawSQLWithTransaction()
+    {
+        // DB::transaction(function() {
+            $user_id = 1;
+            $title = 'トランザクション成功';
+            $body = 'これはトランザクション成功です';
+
+            DB::insert('INSERT INTO posts (user_id, title, body, created_at) VALUES (?, ?, ?, ?)', [$user_id, $title, $body, now()]);
+
+            $title = 'トランザクション失敗';
+            $body = 'これはトランザクション失敗です';
+
+            DB::insert('INSERT INTO posts (title, body, created_at) VALUES (?, ?, ?)', [$title, $body, now()]);
+        // }); 
+    }
 }

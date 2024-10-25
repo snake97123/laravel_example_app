@@ -90,6 +90,12 @@ class PostController extends Controller
         }
     }
 
+    public function createAllPostWithTransaction()
+    {
+        $postModel = new Post();
+        $postModel->createAllPostsRawSQLWithTransaction();
+    }
+
     public function updatePostWithSql() 
     {
        $dummyData = [

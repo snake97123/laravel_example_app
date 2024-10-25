@@ -23,6 +23,11 @@ Route::get(
     [PostController::class, 'index']
 );
 
+Route::post(
+    '/posts/create/bulk',
+    [PostController::class, 'createAllPostWithTransaction']
+);
+
 Route::get(
     '/posts2',
     [PostController::class, 'index2']
