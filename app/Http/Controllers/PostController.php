@@ -96,6 +96,49 @@ class PostController extends Controller
         $postModel->createAllPostsRawSQLWithTransaction();
     }
 
+    // Call the createPostWithQuery method in the model
+    public function createPostsWithQueryBuilder()
+    {
+        $data = (object)[
+                'user_id' => 1,
+                'title' => 'クエリービルダー',
+                'body' => 'クエリビルダーの練習です。'
+        ];
+
+        $postModel = new Post();
+        $postModel->createPostWithQueryBuilder($data);
+    }
+
+    // Call the getPostWithQueryBuilder method in the model
+    public function getPostsWithQueryBuilder()
+    {
+        $postModel = new Post();
+        $posts = $postModel->getAllPostsWithQueryBuilder();
+        return $posts;
+    }
+    
+    // Call the updatePostWithQueryBuilder method in the model
+    // There is only one set of data to update
+    public function updatePostWithQueryBuilder()
+    {
+        $data = (object)[
+            'id' => 11, 
+            'title' => 'クエリービルダー更新',
+            'body' => 'クエリビルダーの練習です。更新しました。'
+        ];
+
+        $postModel = new Post();
+        $postModel->updatePostWithQueryBuilder($data);
+    } 
+
+    // Call the deletePostWithQueryBuilder method in the model
+    public function deletePostWithQueryBuilder($id)
+    {
+        $postModel = new Post();
+        $postModel->deletePostWithQueryBuilder($id);
+    }
+
+
     public function updatePostWithSql() 
     {
        $dummyData = [

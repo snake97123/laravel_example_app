@@ -49,7 +49,7 @@ class Post extends Model
         return $post;
     }
 
-    // get all data with use transaction
+    // create all data with use transaction
     public function createAllPostsRawSQLWithTransaction()
     {
         // DB::transaction(function() {
@@ -64,5 +64,48 @@ class Post extends Model
 
             DB::insert('INSERT INTO posts (title, body, created_at) VALUES (?, ?, ?)', [$title, $body, now()]);
         // }); 
+    }
+
+    // create post data with query builder
+    public function createPostWithQueryBuilder($data)
+    {
+        $post = DB::table('posts')->insert([
+            'user_id' => $data->user_id,
+            'title' => $data->title,
+            'body' => $data->body,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        return $post;
+    }
+
+    // get all posts with query builder
+    public function getAllPostsWithQueryBuilder()
+    {
+        $posts = DB::table('posts')->get();
+        // dd($posts);
+        return $posts;
+    }
+    
+    // update post data with query builder 
+    public function updatePostWithQueryBuilder($data)
+    {
+        $post = DB::table('posts')
+            ->where('id', $data->id)
+            ->update([
+                'title' => $data->title,
+                'body' => $data->body,
+                'updated_at' => now()
+            ]);
+        return $post;
+    }
+
+    // delete post data with query builder
+    public function deletePostWithQueryBuilder($id)
+    {
+        $post = DB::table('posts')
+            ->where('id', $id)
+            ->delete();
+        return $post;
     }
 }
