@@ -108,4 +108,17 @@ class Post extends Model
             ->delete();
         return $post;
     }
+
+    // get post data with query builder use where method
+    public function getPostByFilterWithQueryBuilder()
+    {
+        // $post = DB::table('posts')
+        //     ->where('body', 'like', '%更新%')
+        //     ->get();
+
+        // pagination
+        $posts = DB::table('posts')
+            ->paginate(5);
+        return $posts;
+    }   
 }

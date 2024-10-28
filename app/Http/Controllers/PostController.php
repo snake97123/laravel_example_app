@@ -138,6 +138,14 @@ class PostController extends Controller
         $postModel->deletePostWithQueryBuilder($id);
     }
 
+    // Call the getPostByFilterWithQueryBuilder method in the model
+    public function getPostByFilter()
+    {
+        $postModel = new Post();
+        $posts = $postModel->getPostByFilterWithQueryBuilder();
+        return $posts;
+    }
+
 
     public function updatePostWithSql() 
     {

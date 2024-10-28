@@ -72,6 +72,11 @@ Route::post(
     '/posts/delete/querybuilder/{id}',
     [PostController::class, 'deletePostWithQueryBuilder']
 );
+
+Route::get(
+    '/posts/get/querybuilderwithfilter',
+    [PostController::class, 'getPostByFilter']
+);
 // Route::get(
 //     '/posts',
 //     [PostController::class, 'create']
