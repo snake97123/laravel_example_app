@@ -82,6 +82,11 @@ Route::get(
     '/posts/get/querybuilder/count',
     [PostController::class, 'getPostsCount']
 );
+
+Route::get(
+    '/posts/show/querybuilder/join',
+    [PostController::class, 'getPostsWithJoin']
+);
 // Route::get(
 //     '/posts',
 //     [PostController::class, 'create']

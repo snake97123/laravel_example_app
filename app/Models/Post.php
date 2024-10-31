@@ -128,5 +128,13 @@ class Post extends Model
         return $count;
     }
 
-    
+    // join table posts and users
+    public function getPostsWithJoin()
+    {
+        $posts = DB::table('posts')
+            ->join('users', 'posts.user_id', '=', 'users.id')
+            ->select('posts.*', 'users.name')
+            ->get();
+        return $posts;
+    }
 }

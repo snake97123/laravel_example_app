@@ -188,6 +188,14 @@ class PostController extends Controller
         $count = $postModel->countPosts();
         return $count;
     }
+    
+    // join table posts and users use Post model's method
+    public function getPostsWithJoin()
+    {
+        $postModel = new Post();
+        $posts = $postModel->getPostsWithJoin();
+        return $posts;
+    }
 
     /**
      * Show the form for creating a new resource.
