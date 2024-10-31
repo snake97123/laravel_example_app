@@ -77,6 +77,11 @@ Route::get(
     '/posts/get/querybuilderwithfilter',
     [PostController::class, 'getPostByFilter']
 );
+
+Route::get(
+    '/posts/get/querybuilder/count',
+    [PostController::class, 'getPostsCount']
+);
 // Route::get(
 //     '/posts',
 //     [PostController::class, 'create']

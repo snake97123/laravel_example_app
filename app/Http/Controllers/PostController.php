@@ -182,6 +182,13 @@ class PostController extends Controller
         $postModel->deletePost($dummyData);
     }
 
+    public function getPostsCount()
+    {
+        $postModel = new Post();
+        $count = $postModel->countPosts();
+        return $count;
+    }
+
     /**
      * Show the form for creating a new resource.
      */

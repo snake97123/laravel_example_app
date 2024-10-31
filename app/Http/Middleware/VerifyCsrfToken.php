@@ -21,5 +21,6 @@ class VerifyCsrfToken extends Middleware
         '/posts/update/querybuilder',
         '/posts/delete/querybuilder/*',
         '/posts/get/querybuilderwithfilter',
+        '/posts/get/querybuilder/count',
     ];
 }
