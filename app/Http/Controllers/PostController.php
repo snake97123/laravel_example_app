@@ -197,6 +197,50 @@ class PostController extends Controller
         return $posts;
     }
 
+    // get data by getPostById method in the model
+    public function getPostById($id)
+    {
+        
+        $postModel = new Post();
+        $post = $postModel->getPostById($id);
+        return $post;
+    }
+
+    // get data by createPostWithEloquent method in the model
+    public function createPostWithEloquent()
+    {
+        $data = (object)[
+            'user_id' => 1,
+            'title' => 'エロクアント',
+            'body' => 'エロクアントの練習です。'
+        ];
+
+        $postModel = new Post();
+        $postModel->createPostWithEloquent($data);
+    }
+
+    // update data by updatePostWithEloquent method in the model
+    public function updatePostWithEloquent()
+    {
+        $data = (object)[
+            'id' => 18,
+            'title' => 'エロクアント更新',
+            'body' => 'エロクアントの練習です。更新しました。'
+        ];
+
+        $postModel = new Post();
+        $postModel->updatePostWithEloquent($data);
+    }
+
+    // delete data by deletePostWithEloquent method in the model
+    public function deletePostWithEloquent($id)
+    {
+        $postModel = new Post();
+        $postModel->deletePostWithEloquent($id);
+    }
+
+
+
     /**
      * Show the form for creating a new resource.
      */

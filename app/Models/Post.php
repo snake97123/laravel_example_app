@@ -137,4 +137,41 @@ class Post extends Model
             ->get();
         return $posts;
     }
+
+    // get post data by find method(eloquent)
+    public function getPostById($id)
+    {
+        $post = Post::find($id);
+        return $post;
+    }
+
+    // create post data with eloquent
+    public function createPostWithEloquent($data)
+    {
+        $post = new Post();
+        $post->user_id = $data->user_id;
+        $post->title = $data->title;
+        $post->body = $data->body;
+        $post->save();
+        return $post;
+    }
+
+    // update post data with eloquent
+    public function updatePostWithEloquent($data)
+    {
+        $post = Post::find($data->id);
+        $post->title = $data->title;
+        $post->body = $data->body;
+        $post->save();
+        return $post;
+    }
+
+    // delete post data with eloquent
+    public function deletePostWithEloquent($id)
+    {
+        $post = Post::find($id);
+        $post->delete();
+        return $post;
+    }
+
 }

@@ -87,6 +87,26 @@ Route::get(
     '/posts/show/querybuilder/join',
     [PostController::class, 'getPostsWithJoin']
 );
+
+Route::get(
+    '/posts/get/querybuilder/{id}',
+    [PostController::class, 'getPostById']
+);
+
+Route::post(
+    '/posts/get/eloquent/create',
+    [PostController::class, 'createPostWithEloquent']
+);
+
+Route::post(
+    '/posts/update/eloquent',
+    [PostController::class, 'updatePostWithEloquent']
+);
+
+Route::post(
+    '/posts/delete/eloquent/{id}',
+    [PostController::class, 'deletePostWithEloquent']
+);
 // Route::get(
 //     '/posts',
 //     [PostController::class, 'create']
