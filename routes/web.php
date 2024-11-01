@@ -96,7 +96,7 @@ Route::get(
 );
 
 Route::get(
-    '/posts/get/querybuilder/{id}',
+    '/posts/get/querybuilder',
     [PostController::class, 'getPostById']
 );
 

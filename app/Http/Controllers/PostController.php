@@ -198,11 +198,11 @@ class PostController extends Controller
     }
 
     // get data by getPostById method in the model
-    public function getPostById($id)
+    public function getPostById()
     {
         
         $postModel = new Post();
-        $post = $postModel->getPostById($id);
+        $post = $postModel->getPostById();
         return $post;
     }
 

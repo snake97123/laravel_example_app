@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     // relation with users
     public function user(): BelongsTo
@@ -36,7 +38,7 @@ class Post extends Model
     public function getAllPostsRawSQL()
     {
         $posts = DB::select('SELECT * FROM posts');
-        dd($posts);  
+        // dd($posts);  
         return $posts;
     }
     // データの挿入をするメソッド
@@ -153,10 +155,10 @@ class Post extends Model
     }
 
     // get post data by find method(eloquent)
-    public function getPostById($id)
+    public function getPostById()
     {
-        $post = Post::find($id);
-        return $post->tags;
+        $post = Post::get();
+        return $post;
     }
 
     // create post data with eloquent
