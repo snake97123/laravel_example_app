@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Models\Post;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +19,11 @@ use App\Http\Controllers\PostController;
 Route::get('/', function () {
     return view('home');
 });
+
+Route::get(
+    '/user/{id}',
+    User::class . '@getUserById'
+);
 
 Route::get(
     '/posts',

@@ -10,6 +10,12 @@ class Post extends Model
 {
     use HasFactory;
 
+    // relation with users
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function createPost($data)
     {
         $post = new Post();
