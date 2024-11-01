@@ -179,7 +179,7 @@ class Post extends Model
         $post->title = $data->title;
         $post->body = $data->body;
         $post->save();
-        return $post;
+        return $post;       
     }
 
     // delete post data with eloquent
@@ -188,6 +188,13 @@ class Post extends Model
         $post = Post::find($id);
         $post->delete();
         return $post;
+    }
+
+    // get post data with eager loading
+    public function getPostWithEagerLoading()
+    {
+        $posts = Post::with('tags')->get();
+        return $posts;
     }
 
 }
