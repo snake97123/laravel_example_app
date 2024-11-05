@@ -43,6 +43,12 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    // relation with posts
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
     public function getAllUsers()
     {
         $users = User::all();
@@ -52,7 +58,9 @@ class User extends Authenticatable
     public function getUserById($id)
     {
         $user = User::find($id);
-        return $user;
+        // get post data related to user
+        // dd($user->posts);
+        return $user->posts;
     }
 
     public function createUser($data)
