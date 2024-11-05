@@ -54,6 +54,11 @@ Route::post(
     '/post/update',
     [PostController::class, 'update']
 );
+
+Route::post(
+    '/post/delete/{id}',
+    [PostController::class, 'destroy']
+);
 // Route::post(
 //     '/posts/create/bulk',
 //     [PostController::class, 'createAllPostWithTransaction']

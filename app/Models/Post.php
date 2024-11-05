@@ -15,6 +15,11 @@ class Post extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $fillable = [
+        'title',
+        'body',
+    ];
+
     // relation with users
     public function user(): BelongsTo
     {
@@ -180,7 +185,6 @@ class Post extends Model
     // update post data with eloquent
     public function updatePostWithEloquent($data) : Post
     {
-        Log::debug(print_r($data, true));
         $post = Post::find($data['id']);
         $post->title = $data['title'];
         $post->body = $data['body'];
@@ -191,7 +195,7 @@ class Post extends Model
     // delete post data with eloquent
     public function deletePostWithEloquent($id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         $post->delete();
         return $post;
     }

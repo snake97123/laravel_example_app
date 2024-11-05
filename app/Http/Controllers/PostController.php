@@ -69,6 +69,13 @@ class PostController extends Controller
 
     }
 
+    public function destroy($id)
+    {
+        $post = new Post();
+        $result = $post->deletePostWithEloquent($id);
+        return redirect('/posts');
+    }
+
     // public function index2()
     // {
     //     $posts = [
