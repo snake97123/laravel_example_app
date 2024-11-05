@@ -45,6 +45,15 @@ Route::post(
     [PostController::class, 'store']
 );
 
+Route::get(
+    '/post/edit/{id}',
+    [PostController::class, 'edit']
+);
+
+Route::post(
+    '/post/update',
+    [PostController::class, 'update']
+);
 // Route::post(
 //     '/posts/create/bulk',
 //     [PostController::class, 'createAllPostWithTransaction']

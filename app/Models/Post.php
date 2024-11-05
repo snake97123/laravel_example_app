@@ -178,12 +178,12 @@ class Post extends Model
     }
 
     // update post data with eloquent
-    public function updatePostWithEloquent($data)
+    public function updatePostWithEloquent($data) : Post
     {
-
-        $post = Post::find($data->id);
-        $post->title = $data->title;
-        $post->body = $data->body;
+        Log::debug(print_r($data, true));
+        $post = Post::find($data['id']);
+        $post->title = $data['title'];
+        $post->body = $data['body'];
         $post->save();
         return $post;       
     }

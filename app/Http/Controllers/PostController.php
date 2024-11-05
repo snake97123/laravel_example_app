@@ -45,6 +45,30 @@ class PostController extends Controller
             'post' => $post
         ]);
     }
+
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
+        return view('posts.edit', [
+            'post' => $post
+        ]);
+    }
+
+    public function update(Request $request) 
+    {
+        $request->validate([
+            'id' => 'required|integer', 
+            'title' => 'required|string|max:255',
+            'body' => 'required|string',
+        ]);
+
+        $post = new Post();
+        $result = $post->updatePostWithEloquent($request->all());
+        $result->save();
+        return redirect('/posts');
+
+    }
+
     // public function index2()
     // {
     //     $posts = [
