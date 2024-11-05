@@ -13,6 +13,8 @@
       </div>
         @foreach ($posts as $post)
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
+              <!-- show post detail -->
+              <a href="{{ url('posts/show/' . $post->id) }}">
                 <img src="https://picsum.photos/600/400?random={{ $loop->index }}" alt="Post image" class="w-full h-64 object-cover">
                 <div class="p-4">
                     <h2 class="text-xl font-semibold mb-2">{{ $post->title }}</h2>
