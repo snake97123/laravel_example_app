@@ -59,6 +59,11 @@ Route::post(
     '/post/delete/{id}',
     [PostController::class, 'destroy']
 );
+
+Route::post(
+    '/post/images/{id}',
+    [PostController::class, 'storeImage']
+);
 // Route::post(
 //     '/posts/create/bulk',
 //     [PostController::class, 'createAllPostWithTransaction']
