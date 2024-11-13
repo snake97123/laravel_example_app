@@ -8,9 +8,10 @@
 <div class="max-w-xl mx-auto p-6">
     <div class="space-y-6">
         <h1 class="text-2xl font-semibold mb-6">投稿の編集</h1>
-        <form action="{{ url('/post/update') }}" method="POST">
+        <form action="{{ url('/post/update') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id" value="{{ $post->id }}">
+            <input type="file" name="images[]" id="images" class="w-full p-2 border border-gray-300 rounded mt-1" multiple>
             <div class="mb-4">
                 <label for="title" class="block text-gray-700">タイトル</label>
                 <input type="text" name="title" id="title" class="w-full p-2 border border-gray-300 rounded mt-1" value="{{ $post->title }}" required>

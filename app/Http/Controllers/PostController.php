@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
@@ -11,13 +12,27 @@ class PostController extends Controller
      * Display a listing of the resource.
      */
 
-    public function index()
-    {   
-        $posts = Post::all();
-        return view('posts.index', [
-            'posts' => $posts
-        ]); 
-    }
+     public function index()
+     {
+         // 投稿データを取得し、関連する画像を最新の更新日時に基づいて取得する
+         $posts = Post::with(['postImages' => function ($query) {
+             // 最新の更新日時に一致する画像のみを取得する条件を追加
+             $query->whereIn('updated_at', function ($subQuery) {
+                 // 各 post_id ごとに最大の updated_at（最新の更新日時）をサブクエリで取得
+                 $subQuery->selectRaw('MAX(updated_at)')
+                          ->from('post_images')
+                          // サブクエリ内の post_id と外側のクエリの post_id が一致するように制約
+                          ->whereColumn('post_id', 'post_images.post_id')
+                          // 各 post_id ごとにグループ化して最新の日時を取得
+                          ->groupBy('post_id');
+             });
+         }])->get();
+     
+         return view('posts.index', [
+             'posts' => $posts
+         ]); 
+     }
+     
 
     public function create()
     {
@@ -33,6 +48,15 @@ class PostController extends Controller
 
         $post = new Post();
         $result = $post->createPostWithEloquent($request->all());
+
+        // Log::debug('Request all data: ' . print_r($request->all(), true));
+        // Log::debug('Request files: ' . print_r($request->file('images'), true));
+        //$resultと$request->all()の中身を確認
+        // image upload 
+        if ($request->hasFile('images')) {
+               $postImage = new PostImageController();
+               $postImage->store($request, $result->id);
+            }
         $result->save();
 
         return redirect('/posts');
@@ -40,15 +64,26 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $post = Post::findOrFail($id);
+        // 投稿データを取得し、関連する最新の画像のみをロード
+        $post = Post::with(['postImages' => function ($query) {
+            // 各 post_id ごとに最新の更新日時に一致する画像を取得
+            $query->whereIn('updated_at', function ($subQuery) {
+                // 現在の post_id に対応する最新の updated_at を取得
+                $subQuery->selectRaw('MAX(updated_at)')
+                         ->from('post_images')
+                         ->whereColumn('post_id', 'post_images.post_id')
+                         ->groupBy('post_id');
+            });
+        }])->findOrFail($id);
+    
         return view('posts.show', [
             'post' => $post
         ]);
     }
-
     public function edit($id)
     {
         $post = Post::findOrFail($id);
+        // Log::debug(print_r($post, true));
         return view('posts.edit', [
             'post' => $post
         ]);
@@ -60,10 +95,15 @@ class PostController extends Controller
             'id' => 'required|integer', 
             'title' => 'required|string|max:255',
             'body' => 'required|string',
+            'images.*' => 'file|image|mimes:jpeg,png,gif|max:5120'
         ]);
 
         $post = new Post();
         $result = $post->updatePostWithEloquent($request->all());
+        if ($request->hasFile('images')) {
+            $postImage = new PostImageController();
+            $postImage->store($request, $result->id);
+         }
         $result->save();
         return redirect('/posts');
 
