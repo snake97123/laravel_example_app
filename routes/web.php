@@ -26,6 +26,11 @@ use App\Models\User;
 // );
 
 Route::get(
+    '/',
+    [PostController::class, 'index']
+);
+
+Route::get(
     '/posts',
     [PostController::class, 'index']
 );
