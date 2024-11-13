@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.swiper-container {
+  /* position: relative;
+  padding-bottom: 30px; */
+}
+.swiper-pagination {
+  /* position: absolute;
+  bottom: 0; /* 写真の下に表示されるように調整 
+  left: 0;
+  width: 100%;
+  text-align: center; */
+}

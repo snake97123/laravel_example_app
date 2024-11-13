@@ -16,9 +16,17 @@
               <!-- show post detail -->
               <a href="{{ url('posts/show/' . $post->id) }}">
                 @if ($post->postImages && $post->postImages->isNotEmpty())
-                    @foreach ($post->postImages as $image)
-                    <img src="{{ Storage::url($image->url) }}" alt="Post image" class="w-full h-64 object-cover">
-                    @endforeach
+                  <div class="swiper-container relative pb-8">
+                    <div class="swiper-wrapper">
+                      @foreach ($post->postImages as $image)
+                        <div class="swiper-slide">
+                          <img src="{{ Storage::url($image->url) }}" alt="Post image" class="w-full h-64 object-cover">
+                        </div>
+                      @endforeach
+                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination absolute bottom-0 left-0 w-full text-center"></div>
+                  </div>
                 @else
                     <img src="https://picsum.photos/600/400?random={{ $loop->index }}" alt="Post image" class="w-full h-64 object-cover">
                 @endif
@@ -39,4 +47,6 @@
         @endforeach
     </div>
 </div>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 @endsection
