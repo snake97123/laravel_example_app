@@ -59,6 +59,8 @@ class PostController extends Controller
             }
         $result->save();
 
+        session()->flash('success', '投稿は正常に作成されました');
+
         return redirect('/posts');
     }
 
@@ -105,6 +107,9 @@ class PostController extends Controller
             $postImage->store($request, $result->id);
          }
         $result->save();
+
+        session()->flash('success', '投稿は正常に更新されました');
+
         return redirect('/posts');
 
     }
@@ -113,6 +118,9 @@ class PostController extends Controller
     {
         $post = new Post();
         $result = $post->deletePostWithEloquent($id);
+        if($result) {
+            session()->flash('success', '投稿は正常に削除されました');
+        }
         return redirect('/posts');
     }
 
