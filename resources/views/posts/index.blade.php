@@ -52,7 +52,7 @@
                 </div>
               </a>
               <div class="flex justify-end p-4">
-                <form action="{{ url('post/delete/' . $post->id) }}" method="POST">
+                <form action="{{ url('post/delete/' . $post->id) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
                     @csrf
                     <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                         削除
