@@ -8,6 +8,8 @@
   href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
   />
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
   <title>@yield('title')</title>
   @vite('resources/css/app.css')
 </head>
