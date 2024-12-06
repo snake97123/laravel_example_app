@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
-use App\Models\Post;
-use App\Models\User;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,143 +16,53 @@ use App\Models\User;
 */
 
 // Route::get('/', function () {
-//     return view('home');
+//     return view('welcome');
 // });
 
-// Route::get(
-//     '/user/{id}',
-//     User::class . '@getUserById'
-// );
+Route::get('/', function () {
+    return view('dashboard');
+})->name('dashboard');
 
-Route::get(
-    '/',
-    [PostController::class, 'index']
-);
+Route::get('/posts', [PostController::class, 'index'])->middleware(['auth', 'verified'])->name('post.index');
 
-Route::get(
-    '/posts',
-    [PostController::class, 'index']
-);
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get(
+        '/posts/show/{id}',
+        [PostController::class, 'show']
+    );
+    
+    Route::get(
+        '/post/create',
+        [PostController::class, 'create']
+    );
+    
+    Route::post(
+        '/post/create',
+        [PostController::class, 'store']
+    );
+    
+    Route::get(
+        '/post/edit/{id}',
+        [PostController::class, 'edit']
+    );
+    
+    Route::post(
+        '/post/update',
+        [PostController::class, 'update']
+    );
+    
+    Route::post(
+        '/post/delete/{id}',
+        [PostController::class, 'destroy']
+    );
+    
+    Route::post(
+        '/post/images/{id}',
+        [PostController::class, 'storeImage']
+    );    
+});
 
-Route::get(
-    '/posts/show/{id}',
-    [PostController::class, 'show']
-);
-
-Route::get(
-    '/post/create',
-    [PostController::class, 'create']
-);
-
-Route::post(
-    '/post/create',
-    [PostController::class, 'store']
-);
-
-Route::get(
-    '/post/edit/{id}',
-    [PostController::class, 'edit']
-);
-
-Route::post(
-    '/post/update',
-    [PostController::class, 'update']
-);
-
-Route::post(
-    '/post/delete/{id}',
-    [PostController::class, 'destroy']
-);
-
-Route::post(
-    '/post/images/{id}',
-    [PostController::class, 'storeImage']
-);
-// Route::post(
-//     '/posts/create/bulk',
-//     [PostController::class, 'createAllPostWithTransaction']
-// );
-
-// Route::get(
-//     '/posts2',
-//     [PostController::class, 'index2']
-// );
-
-// Route::get(
-//     '/posts3',
-//     [PostController::class, 'showAllPosts']
-// );
-
-// Route::post(
-//     '/create/normalsql',
-//     [PostController::class, 'insertPostWithSql']
-// );
-
-// Route::post(
-//     '/update/normalsql',
-//     [PostController::class, 'updatePostWithSql']
-// );
-
-// Route::post(
-//     '/delete/normalsql',
-//     [PostController::class, 'deletePostWithSql']
-// );
-
-// Route::post(
-//     '/posts/create/querybuilder',
-//     [PostController::class, 'createPostsWithQueryBuilder']
-// );
-
-// Route::get(
-//     '/posts/get/querybuilder',
-//     [PostController::class, 'getPostsWithQueryBuilder']
-// );
-
-// Route::post(
-//     '/posts/update/querybuilder',
-//     [PostController::class, 'updatePostWithQueryBuilder']
-// );
-
-// Route::post(
-//     '/posts/delete/querybuilder/{id}',
-//     [PostController::class, 'deletePostWithQueryBuilder']
-// );
-
-// Route::get(
-//     '/posts/get/querybuilderwithfilter',
-//     [PostController::class, 'getPostByFilter']
-// );
-
-// Route::get(
-//     '/posts/get/querybuilder/count',
-//     [PostController::class, 'getPostsCount']
-// );
-
-// Route::get(
-//     '/posts/show/querybuilder/join',
-//     [PostController::class, 'getPostsWithJoin']
-// );
-
-// Route::get(
-//     '/posts/get/querybuilder',
-//     [PostController::class, 'getPostById']
-// );
-
-// Route::post(
-//     '/posts/get/eloquent/create',
-//     [PostController::class, 'createPostWithEloquent']
-// );
-
-// Route::post(
-//     '/posts/update/eloquent',
-//     [PostController::class, 'updatePostWithEloquent']
-// );
-
-// Route::post(
-//     '/posts/delete/eloquent/{id}',
-//     [PostController::class, 'deletePostWithEloquent']
-// );
-// // Route::get(
-// //     '/posts',
-// //     [PostController::class, 'create']
-// // );
+require __DIR__.'/auth.php';
