@@ -176,7 +176,9 @@ class Post extends Model
     public function createPostWithEloquent($data) : Post 
     {
         // Log::debug(print_r($data, true));
-        $user_id = 1;
+        $user = auth()->user();
+        Log::debug(print_r($user, true));
+        $user_id = $user->id;
         $post = new Post();
         // $post->user_id = $data->user_id;
         $post->user_id = $user_id;

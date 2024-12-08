@@ -11,7 +11,7 @@
   <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
   <title>@yield('title')</title>
-  @vite('resources/css/app.css')
+  @vite('resources/css/app.css') @vite('resources/js/app.js')
 </head>
 <body>
   <header style="background-color: #add8e6; text-align: center; padding: 10px;">
@@ -20,12 +20,14 @@
         インスタグラム風アプリ
       </a>
     </h1>
+    @include('layouts.navigation')
   </header>
   <div class="content">
     @yield('content')
   </div>
   <footer style="background-color: #add8e6; padding: 10px;">
-    <p>2023 インスタグラム風アプリ</p>
+    <p>2024 インスタグラム風アプリ</p>
   </footer>
 </body>
 </html>
+
