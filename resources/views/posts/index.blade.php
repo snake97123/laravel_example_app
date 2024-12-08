@@ -49,14 +49,19 @@
                 <div class="p-4">
                     <h2 class="text-xl font-semibold mb-2">{{ $post->title }}</h2>
                     <p class="text-gray-700">{{ $post->body }}</p>
+                    <p class="text-gray-700">
+                      by: <i>{{ $post->user->name}}</i>
+                    </p>
                 </div>
               </a>
               <div class="flex justify-end p-4">
                 <form action="{{ url('post/delete/' . $post->id) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
                     @csrf
+                    @if (Auth::id() === $post->user_id)
                     <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                         削除
                     </button>
+                    @endif
                 </form>
               </div>
             </div>

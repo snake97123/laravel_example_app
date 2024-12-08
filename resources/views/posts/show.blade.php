@@ -32,14 +32,19 @@
             <div class="p-4">
                 <h2 class="text-xl font-semibold mb-2">{{ $post->title }}</h2>
                 <p class="text-gray-700">{{ $post->body }}</p>
+                <p class="text-gray-700">
+                      by: <i>{{ $post->user->name}}</i>
+                    </p>
             </div>
           <div class="flex justify-end space-x-4 p-4">
             <a href="{{ url('posts') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
               戻る
             </a>
+            @if (Auth::id() === $post->user_id)
             <a href="{{ url('post/edit/' . $post->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
               編集
             </a>
+            @endif
           </div>
         </div>
     </div>

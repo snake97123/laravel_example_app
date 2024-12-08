@@ -14,7 +14,6 @@ class PostController extends Controller
 
      public function index()
      {
-        Log::debug('PostController@index');
          // 投稿データを取得し、関連する画像を最新の更新日時に基づいて取得する
          $posts = Post::with(['postImages' => function ($query) {
              // 最新の更新日時に一致する画像のみを取得する条件を追加
