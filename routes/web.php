@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminAuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -63,6 +64,18 @@ Route::middleware('auth')->group(function () {
         '/post/images/{id}',
         [PostController::class, 'storeImage']
     );    
+});
+
+Route::prefix('admin')->name('admin.')->group(function() {
+    Route::get('login', [AdminAuthController::class, 'showLogin'])->name('login');
+    Route::post('login', [AdminAuthController::class, 'login']);   
+    Route::post('logout', [AdminAuthController::class, 'logout'])->name('logout'); 
+
+    Route::middleware('auth:admin')->group(function() {
+        Route::get('dashboard', function() {
+            return view('admin.dashboard');
+        })->name('dashboard');
+    });
 });
 
 require __DIR__.'/auth.php';
