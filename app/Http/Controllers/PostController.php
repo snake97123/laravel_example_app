@@ -85,6 +85,8 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
+        // use policy
+        $this->authorize('update', $post); 
         // Log::debug(print_r($post, true));
         return view('posts.edit', [
             'post' => $post
