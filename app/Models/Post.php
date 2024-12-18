@@ -193,6 +193,10 @@ class Post extends Model
     public function updatePostWithEloquent($data) : Post
     {
         $post = Post::find($data['id']);
+        
+        // use policy
+        $this->authorize('update', $post);
+        
         $post->title = $data['title'];
         $post->body = $data['body'];
         $post->save();
