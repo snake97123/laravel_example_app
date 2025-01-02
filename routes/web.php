@@ -4,6 +4,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminAuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\SocialLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +66,9 @@ Route::middleware('auth')->group(function () {
         [PostController::class, 'storeImage']
     );    
 });
+
+Route::get('login/github', [SocialLoginController::class, 'redirectToGithub'])->name('login.github');
+Route::get('login/github/callback', [SocialLoginController::class, 'handleGithubCallback']);
 
 Route::prefix('admin')->name('admin.')->group(function() {
     Route::get('login', [AdminAuthController::class, 'showLogin'])->name('login');
