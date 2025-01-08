@@ -18,7 +18,6 @@ class PostImageController extends Controller
         'images.*' => 'file|image|mimes:jpeg,png,gif|max:5120'
        ]);
        
-       Log::debug(print_r($request->all(), true)); 
        $post = Post::findOrFail($postId);
       
        // multiple image file upload

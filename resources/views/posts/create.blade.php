@@ -5,7 +5,17 @@
 @section('title', '新規投稿')
 
 @section('content')
+
 <div class="max-w-xl mx-auto p-6">
+    @if ($errors->any())
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="space-y-6">
         <h1 class="text-2xl font-semibold mb-6">新規投稿</h1>
         <form action="{{ url('/post/create')}}" method="POST" enctype="multipart/form-data">
@@ -16,11 +26,12 @@
             </div>
             <div class="mb-4">
                 <label for="title" class="block text-gray-700">タイトル</label>
-                <input type="text" name="title" id="title" class="w-full p-2 border border-gray-300 rounded mt-1" required>
+                <input type="text" name="title" id="title" class="w-full p-2 
+                border border-gray-300 rounded mt-1">
             </div>
             <div class="mb-4">
                 <label for="body" class="block text-gray-700">本文</label>
-                <textarea name="body" id="body" rows="5" class="w-full p-2 border border-gray-300 rounded mt-1" required></textarea>
+                <textarea name="body" id="body" rows="5" class="w-full p-2 border border-gray-300 rounded mt-1"></textarea>
             </div>
             <div class="flex justify-end mt-6">
                 <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">

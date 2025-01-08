@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -39,15 +40,10 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'body' => 'required|string',
-        ]);
-
         $post = new Post();
-        $result = $post->createPostWithEloquent($request->all());
+        $result = $post->createPostWithEloquent($request->validated());
 
         // Log::debug('Request all data: ' . print_r($request->all(), true));
         // Log::debug('Request files: ' . print_r($request->file('images'), true));
@@ -93,17 +89,15 @@ class PostController extends Controller
         ]);
     }
 
-    public function update(Request $request) 
+    public function update(StorePostRequest $request) 
     {
         $request->validate([
             'id' => 'required|integer', 
-            'title' => 'required|string|max:255',
-            'body' => 'required|string',
             'images.*' => 'file|image|mimes:jpeg,png,gif|max:5120'
         ]);
 
         $post = new Post();
-        $result = $post->updatePostWithEloquent($request->all());
+        $result = $post->updatePostWithEloquent($request->validated());
         if ($request->hasFile('images')) {
             $postImage = new PostImageController();
             $postImage->store($request, $result->id);
