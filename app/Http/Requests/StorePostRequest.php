@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\NoForbiddenWords;
 
 class StorePostRequest extends FormRequest
 {
@@ -22,8 +23,8 @@ class StorePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
-            'body' => 'required',
+            'title' => ['required', 'string', 'max:255', new NoForbiddenWords()],
+            'body' => ['required', new NoForbiddenWords()],
         ];
     }
 
